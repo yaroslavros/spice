@@ -1159,7 +1159,6 @@ bool red_worker_run(RedWorker *worker)
 #ifndef _WIN32
     pthread_sigmask(SIG_SETMASK, &curr_sig_mask, NULL);
 #endif
-    pthread_setname_np(worker->thread, "SPICE Worker");
 
     return r == 0;
 }

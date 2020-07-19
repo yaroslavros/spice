@@ -45,6 +45,7 @@
 #if !defined(TCP_CORK) && !defined(_WIN32)
 #define TCP_CORK TCP_NOPUSH
 #endif
+#define MSG_NOSIGNAL 0x2000
 
 struct AsyncRead {
     void *opaque;

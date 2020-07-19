@@ -42,6 +42,8 @@
 #include "net-utils.h"
 #include "websocket.h"
 
+#define MSG_NOSIGNAL 0x2000
+
 /*
 on data arrived on socket:
   try to read data, read again till error, handle error, on EAGAIN polling again
@@ -200,7 +202,7 @@ handle_client(int new_sock)
     }
 
     int enable = 1;
-    setsockopt(new_sock, SOL_TCP, TCP_NODELAY, (const void *) &enable, sizeof(enable));
+    setsockopt(new_sock, IPPROTO_TCP, TCP_NODELAY, (const void *) &enable, sizeof(enable));
 
     // wait header
     wait_for(new_sock, POLLIN);

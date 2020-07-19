@@ -144,7 +144,8 @@ int main(int argc, char **argv)
             num_of_nodes = reds_stat->num_of_nodes;
             shm_old_size = shm_size;
             shm_size = header_size + num_of_nodes * sizeof(SpiceStatNode);
-            reds_stat = mremap(reds_stat, shm_old_size, shm_size, MREMAP_MAYMOVE);
+            munmap(reds_stat, shm_old_size);
+            reds_stat = mmap(0, shm_old_size, PROT_READ | PROT_WRITE, MAP_SHARED, -1, 0);
             if (reds_stat == (SpiceStat *)MAP_FAILED) {
                 perror("mremap");
                 goto error;
